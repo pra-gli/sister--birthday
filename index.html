@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sister! 🎉</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Audio Player (Hidden) -->
+    <audio id="bg-music" loop preload="auto" autoplay>
+        <source src="birthday-song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- CRITICAL: Instant Play Script -->
+    <script>
+        (function() {
+            var audio = document.getElementById('bg-music');
+            
+            // Optimization: Set volume to max immediately
+            audio.volume = 1.0;
+
+            // Attempt to play immediately
+            var playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(function(error) {
+                    console.log("Autoplay blocked. Waiting for interaction.");
+                    
+                    // Add one-time interaction listener to EVERYTHING
+                    var events = ['click', 'mousemove', 'touchstart', 'keydown', 'scroll', 'mousedown'];
+                    var unlock = function() {
+                        audio.play();
+                        // Remove listeners
+                        events.forEach(function(e) { document.removeEventListener(e, unlock); });
+                    };
+                    
+                    events.forEach(function(e) {
+                        document.addEventListener(e, unlock, { once: true, capture: true });
+                    });
+                });
+            }
+        })();
+    </script>
+
+    <!-- Music Control Button -->
+    <button id="music-btn" class="music-btn">🎵 Play Music</button>
+
+    <!-- Stage 1: Intro Screen -->
+    <div id="stage-1" class="stage">
+        <div class="intro-content">
+            <h1>Hey Sister! 💖</h1>
+            <p>I have a surprise for you...</p>
+            <button id="btn-stage-1" class="btn-primary">Tap to Open 🎁</button>
+        </div>
+    </div>
+
+    <!-- Stage 2: Tricky Question -->
+    <div id="stage-2" class="stage hidden">
+        <div class="intro-content">
+            <h2>Security Check 🔒</h2>
+            <p>Who is the favorite child of parents?</p>
+            <div class="button-group">
+                <button id="btn-stage-2-wrong" class="btn-secondary"> (Laxmi)</button>
+                <button id="btn-stage-2-correct" class="btn-primary">(Prakash)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stage 3: Catch the Button -->
+    <div id="stage-3" class="stage hidden">
+        <div class="intro-content">
+            <h2>One Last Step... 🏃‍♀️</h2>
+            <p>Catch the button if you can!</p>
+            <button id="btn-stage-3" class="btn-primary catch-me">Enter Party 🎉</button>
+        </div>
+    </div>
+
+    <!-- Main Content (Paginated) -->
+    <main id="main-content" class="hidden">
+        
+        <!-- Page 1: Birthday Wish -->
+        <section id="page-1" class="page active">
+            <h1 class="title">Happy Birthday deee! 🎂</h1>
+            <div class="typing-container">
+                <p id="typing-text"></p>
+            </div>
+            <div class="nav-controls">
+                <button class="btn-secondary next-page-btn" data-next="page-2">Next ➡️</button>
+            </div>
+        </section>
+
+        <!-- Page 2: Circular Photo Gallery -->
+        <section id="page-2" class="page hidden">
+            <h2>Memories Rotating 💫</h2>
+            <div class="gallery-container">
+                <div class="circular-slider" id="circular-slider">
+                    <!-- Images will be inserted here or are pre-defined -->
+                    <div class="slide" style="--i:1;"><img src="img1.jpeg" alt="Photo 1"></div>
+                    <div class="slide" style="--i:2;"><img src="img2.jpeg" alt="Photo 2"></div>
+                    <div class="slide" style="--i:3;"><img src="img3.jpeg" alt="Photo 3"></div>
+                    <div class="slide" style="--i:4;"><img src="img4.jpg" alt="Photo 4"></div>
+                    <div class="slide" style="--i:6;"><img src="img6.jpg" alt="Photo 6"></div>
+                    <div class="slide" style="--i:7;"><img src="img7.jpg" alt="Photo 7"></div>
+                    <div class="slide" style="--i:9;"><img src="img9.jpg" alt="Photo 9"></div>
+                    <div class="slide" style="--i:10;"><img src="img10.jpg" alt="Photo 10"></div>
+                    <div class="slide" style="--i:11;"><img src="img11.jpeg" alt="Photo 11"></div>
+                    <div class="slide" style="--i:12;"><img src="img12.jpeg" alt="Photo 12"></div>
+                    <div class="slide" style="--i:13;"><img src="img13.jpeg" alt="Photo 13"></div>
+                    <div class="slide" style="--i:14;"><img src="img14.jpeg" alt="Photo 14"></div>
+                    <div class="slide" style="--i:15;"><img src="img15.jpeg" alt="Photo 15"></div>
+                    <div class="slide" style="--i:16;"><img src="img16.jpeg" alt="Photo 16"></div>
+                </div>
+            </div>
+            <div class="controls">
+                <button id="prev-btn" class="btn-secondary">⬅️ Rotate</button>
+                <button id="next-btn" class="btn-secondary">Rotate ➡️</button>
+            </div>
+            <div class="nav-controls">
+                <button class="btn-secondary prev-page-btn" data-prev="page-1">⬅️ Back</button>
+                <button class="btn-secondary next-page-btn" data-next="page-3">Next ➡️</button>
+            </div>
+        </section>
+
+        <!-- Page 3: Funny Memories -->
+        <section id="page-3" class="page hidden">
+            <h2>Funny Moments 😂</h2>
+            <div class="memories-grid">
+                <div class="memory-card">
+                    <div class="emoji">🤪</div>
+                    <p>Remember tero acting class thats Classic.</p>
+                </div>
+                <div class="memory-card">
+                    <div class="emoji">🍕</div>
+                    <p>That time jaba tu hostel jana lai goth batw na orleko... I still remember.</p>
+                </div>
+                <div class="memory-card">
+                    <div class="emoji">🎤</div>
+                    <p>Your bathroom singing concerts are... unique.</p>
+                </div>
+            </div>
+            <div class="nav-controls">
+                <button class="btn-secondary prev-page-btn" data-prev="page-2">⬅️ Back</button>
+                <button class="btn-secondary next-page-btn" data-next="page-4">Next ➡️</button>
+            </div>
+        </section>
+
+        <!-- Page 4: Cake & Final Message -->
+        <section id="page-4" class="page hidden">
+            <h2>Make a Wish! 🕯️</h2>
+            <div class="cake-container" id="cake-container">
+                <div class="cake">
+                    <div class="plate"></div>
+                    <div class="layer layer-bottom"></div>
+                    <div class="layer layer-middle"></div>
+                    <div class="layer layer-top"></div>
+                    <div class="icing"></div>
+                    <div class="drip drip1"></div>
+                    <div class="drip drip2"></div>
+                    <div class="drip drip3"></div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                </div>
+            </div>
+            <p class="final-msg">May all your dreams come true! Love you! 💖</p>
+            <button id="blow-candle" class="btn-primary">Blow Candle 🌬️</button>
+            <div class="nav-controls">
+                <button class="btn-secondary prev-page-btn" data-prev="page-3">⬅️ Back</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Roast Message Overlay -->
+    <div id="roast-overlay" class="hidden">
+        <div class="roast-content">
+            <h2>💥 SURPRISE! 💥</h2>
+            <p id="roast-text">You're not old, you're just vintage! 🍷<br>(And slightly annoying, but I love you! 😜)</p>
+            <button id="close-roast" class="btn-primary">Haha, very funny 🙄</button>
+        </div>
+    </div>
+
+    <!-- Canvas for Confetti -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <script src="special.js"></script>
+</body>
+</html>
